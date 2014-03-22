@@ -8,7 +8,7 @@
 ## ----------------------------------------------
 ## AWS 入門（日本語）
 ## ----------------------------------------------
-mkdir awsgsg -p
+mkdir -p awsgsg
 cd awsgsg
 wget http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-intro-ja_jp.pdf
 wget http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-computebasics-linux-ja_jp.pdf
@@ -425,7 +425,7 @@ wget http://awsdocs.s3.amazonaws.com/awssupport/latest/support-api.pdf
 ## ----------------------------------------------
 ## http://aws.amazon.com/jp/whitepapers/
 ## ----------------------------------------------
-mkdir whitepapers -p
+mkdir -p whitepapers
 cd whitepapers
 
 ## AWS ホワイトペーパー
@@ -495,7 +495,7 @@ cd ..
 ## ----------------------------------------------
 ## Amazon Data Service Japan Contents
 ## ----------------------------------------------
-mkdir adsj-contens -p
+mkdir -p adsj-contens
 cd adsj-contents
 wget http://adsj-contents.s3.amazonaws.com/training/aws-basic/0_AWS_Basic_Prepare_20120629.pdf
 wget http://adsj-contents.s3.amazonaws.com/training/aws-basic/1_AWS_Basic_SignUp_20120629.pdf
