@@ -18,8 +18,10 @@ wget http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-wah.pdf
 wget http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-deploy.pdf
 wget http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-emr.pdf
 wget http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-swh.pdf
-cd ..
 
+cd ..
+mkdir -p awssdk
+cd awssdk
 
 ## ----------------------------------------------
 ## AWS SDK for Android ドキュメント
@@ -62,6 +64,10 @@ wget http://docs.aws.amazon.com/aws-sdk-php/guide/latest/aws-sdk-php-guide.pdf
 ## ----------------------------------------------
 wget http://awsdocs.s3.amazonaws.com/sdk-ruby/latest/aws-sdk-ruby-dg.pdf
 
+cd ..
+mkdir -p aws-toolkit
+cd aws-toolkit
+
 
 ## ----------------------------------------------
 ## AWS Toolkit for Eclipse
@@ -75,6 +81,11 @@ wget http://awsdocs.s3.amazonaws.com/toolkit-eclipse/latest/aws-tke-gsg.pdf
 wget http://awsdocs.s3.amazonaws.com/toolkit-visualstudio/latest/aws-tkv-ug.pdf
 
 
+cd ..
+mkdir -p aws-cli
+cd aws-cli
+
+
 ## ----------------------------------------------
 ## AWS Command Line Interface Documentation
 ## ----------------------------------------------
@@ -85,6 +96,12 @@ wget http://awsdocs.s3.amazonaws.com/cli/latest/aws-cli.pdf
 ## AWS Tools for Windows PowerShell Documentation
 ## ----------------------------------------------
 wget http://awsdocs.s3.amazonaws.com/powershell/latest/aws-pst-ug.pdf
+
+
+cd ..
+mkdir -p aws-service
+cd aws-service
+
 
 
 ## ----------------------------------------------
@@ -425,6 +442,7 @@ wget http://awsdocs.s3.amazonaws.com/awssupport/latest/support-api.pdf
 ## ----------------------------------------------
 ## http://aws.amazon.com/jp/whitepapers/
 ## ----------------------------------------------
+cd ..
 mkdir -p whitepapers
 cd whitepapers
 
@@ -494,8 +512,9 @@ cd ..
 
 ## ----------------------------------------------
 ## Amazon Data Service Japan Contents
+## http://aws.amazon.com/jp/aws-jp-introduction/
 ## ----------------------------------------------
-mkdir -p adsj-contens
+mkdir -p adsj-contents
 cd adsj-contents
 wget http://adsj-contents.s3.amazonaws.com/training/aws-basic/0_AWS_Basic_Prepare_20120629.pdf
 wget http://adsj-contents.s3.amazonaws.com/training/aws-basic/1_AWS_Basic_SignUp_20120629.pdf
@@ -510,7 +529,7 @@ wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%82%A8%E3%83%B3
 wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/AWS%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E3%81%A7%E3%81%AECDN%E6%B4%BB%E7%94%A8-%E5%8B%95%E7%94%BB%E9%85%8D%E4%BF%A1%E7%B7%A8-_20121029.pdf
 wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E7%95%8C%E9%9A%88%E3%81%A7%E6%B4%BB%E7%94%A8%E3%81%95%E3%82%8C%E3%82%8BAWS_20130927.pdf
 wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/AWS%E3%81%A7%E5%AE%9F%E7%8F%BE%E3%81%99%E3%82%8B%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%E3%81%A8%E3%83%87%E3%82%A3%E3%82%B6%E3%82%B9%E3%82%BF%E3%83%AA%E3%82%AB%E3%83%90%E3%83%AA_20130220.pdf
-wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%9A%E3%83%A9%E3%82%A4%E3%82%B9%E3%82%99%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BAWS%E5%88%A9%E7%94%A8%E4%BA%8B%E4%BE%8B_20121116.pdf
+wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%97%E3%83%A9%E3%82%A4%E3%82%BA%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BAWS%E5%88%A9%E7%94%A8%E4%BA%8B%E4%BE%8B_20121116.pdf
 wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/aws_for_startup_20130712public.pdf
 wget http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%20on%20AWS_20130927.pdf
 wget http://adsj-contents.s3.amazonaws.com/meister-reloaded/20130130_AWS-Meister-Reloaded-Billing_public.pdf
@@ -584,3 +603,21 @@ wget http://adsj-contents.s3.amazonaws.com/misc/%E3%82%A2%E3%83%97%E3%83%AA%E3%8
 wget https://adsj-contents.s3.amazonaws.com/misc/20130205_AWS%E3%81%8B%E3%82%89%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E9%80%81%E4%BF%A1.pdf
 
 
+cd ..
+
+
+## ----------------------------------------------
+## convert encode
+## ----------------------------------------------
+dirs=("awsgsg" "awssdk" "aws-toolkit" "aws-service" "whitepapers" "aws-cli" "adsj-contents")
+
+for dir in ${dirs[@]}
+do
+  filelist=`ls ./${dir}/*.pdf | grep "%"`
+  for file in ${filelist[@]}
+  do
+    new_file=`echo ${file} | nkf --url-input`
+    new_file=`echo ${new_file/%%20/\ }`
+    mv "${file}" "${new_file}"
+  done
+done

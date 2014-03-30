@@ -18,8 +18,10 @@ curl -O http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-wah.pdf
 curl -O http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-deploy.pdf
 curl -O http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-emr.pdf
 curl -O http://awsdocs.s3.amazonaws.com/gettingstarted/latest/awsgsg-swh.pdf
-cd ..
 
+cd ..
+mkdir -p awssdk
+cd awssdk
 
 ## ----------------------------------------------
 ## AWS SDK for Android ドキュメント
@@ -62,6 +64,10 @@ curl -O http://docs.aws.amazon.com/aws-sdk-php/guide/latest/aws-sdk-php-guide.pd
 ## ----------------------------------------------
 curl -O http://awsdocs.s3.amazonaws.com/sdk-ruby/latest/aws-sdk-ruby-dg.pdf
 
+cd ..
+mkdir -p aws-toolkit
+cd aws-toolkit
+
 
 ## ----------------------------------------------
 ## AWS Toolkit for Eclipse
@@ -75,6 +81,11 @@ curl -O http://awsdocs.s3.amazonaws.com/toolkit-eclipse/latest/aws-tke-gsg.pdf
 curl -O http://awsdocs.s3.amazonaws.com/toolkit-visualstudio/latest/aws-tkv-ug.pdf
 
 
+cd ..
+mkdir -p aws-cli
+cd aws-cli
+
+
 ## ----------------------------------------------
 ## AWS Command Line Interface Documentation
 ## ----------------------------------------------
@@ -85,6 +96,12 @@ curl -O http://awsdocs.s3.amazonaws.com/cli/latest/aws-cli.pdf
 ## AWS Tools for Windows PowerShell Documentation
 ## ----------------------------------------------
 curl -O http://awsdocs.s3.amazonaws.com/powershell/latest/aws-pst-ug.pdf
+
+
+cd ..
+mkdir -p aws-service
+cd aws-service
+
 
 
 ## ----------------------------------------------
@@ -425,6 +442,7 @@ curl -O http://awsdocs.s3.amazonaws.com/awssupport/latest/support-api.pdf
 ## ----------------------------------------------
 ## http://aws.amazon.com/jp/whitepapers/
 ## ----------------------------------------------
+cd ..
 mkdir -p whitepapers
 cd whitepapers
 
@@ -494,8 +512,9 @@ cd ..
 
 ## ----------------------------------------------
 ## Amazon Data Service Japan Contents
+## http://aws.amazon.com/jp/aws-jp-introduction/
 ## ----------------------------------------------
-mkdir -p adsj-contens
+mkdir -p adsj-contents
 cd adsj-contents
 curl -O http://adsj-contents.s3.amazonaws.com/training/aws-basic/0_AWS_Basic_Prepare_20120629.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/training/aws-basic/1_AWS_Basic_SignUp_20120629.pdf
@@ -513,7 +532,8 @@ curl -O http://adsj-contents.s3.amazonaws.com/solution-casestudy/AWS%E3%81%A7%E5
 curl -O http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%9A%E3%83%A9%E3%82%A4%E3%82%B9%E3%82%99%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8BAWS%E5%88%A9%E7%94%A8%E4%BA%8B%E4%BE%8B_20121116.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/solution-casestudy/aws_for_startup_20130712public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/solution-casestudy/%E3%82%B2%E3%83%BC%E3%83%A0%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%20on%20AWS_20130927.pdf
-curl -O http://adsj-contents.s3.amazonaws.com/meister-reloaded/20130130_AWS-Meister-Reloaded-Billing_public.pdf
+curl -O https://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20140312_AWS-Meister-reGenerated-BigData%2BDataPipeline-public.pdf
+curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20140226_AWS-Meister-reGenerate-Billing-Public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/misc/aws-131008213240-phpapp02.pdf
 curl -O http://media.amazonwebservices.com/jp/cost/AWS-Simple-C_JP_Guiede_20131017.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130327_AWS-Meister-reGenerate-S3_public.pdf
@@ -537,11 +557,12 @@ curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130410_AWS
 curl -O http://adsj-contents.s3.amazonaws.com/meister-reloaded/20120508_AWS-Meister-Reloaded-RDS-public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-reloaded/20120508_AWS-Meister-Reloaded-RDS-public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20131002_AWS-Meister-reGenerate-DynamoDB-public.pdf
-curl -O http://adsj-contents.s3.amazonaws.com/product/Amazon_Redshift%E3%81%AE%E7%B4%B9%E4%BB%8B_20130411.pdf
+curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130716_AWS-Meister-reGenerate-Redshift_public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130612_AWS-Meister-reGenerate-ELB-public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/product/%E3%83%AD%E3%83%BC%E3%83%89%E3%83%90%E3%83%A9%E3%83%B3%E3%82%B5%E3%81%A8Socket%E6%8E%A5%E7%B6%9A%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9F%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E9%80%9A%E7%9F%A5%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E8%B2%A0%E8%8D%B7%E5%88%86%E6%95%A3_20120921.pdf
 curl -O http://d36cz9buwru1tt.cloudfront.net/jp/documentation/BestPracticesInEvaluatingELB-ja-final.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130925_AWS-Meister-reGenerate-EMR_public.pdf
+curl -O https://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20140312_AWS-Meister-reGenerated-BigData%2BDataPipeline-public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/product/AmazonElasticTranscoder%E7%B4%B9%E4%BB%8B_20130522.pdf
 curl -O https://adsj-contents.s3.amazonaws.com/meister-re:Generate/20131120AWS-Medister-reGenerate-CloudFront&ETS_public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/product/GettingStartedWithBeanstalk_20130111.pdf
@@ -561,7 +582,7 @@ curl -O https://adsj-contents.s3.amazonaws.com/meister-re:Generate/20140205_AWS-
 curl -O https://adsj-contents.s3.amazonaws.com/meister-re:Generate/20131210_AWS-Meister-reGenerate-AWS%20SDK%20for%20Java%20and%20dotNET-public.pdf
 curl -O https://adsj-contents.s3.amazonaws.com/meister-re:Generate/20131210_AWS-Meister-reGenerate-AWS%20SDK%20for%20Java%20and%20dotNET-public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130424_AWS-Meister-reGenerate-SWF_public.pdf
-curl -O http://adsj-contents.s3.amazonaws.com/meister/20111207_11_AWS-Meister-SES-public.pdf
+curl -O https://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20140305_AWS-Meister-reGenerated-AmazonSES-public.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/product/Amazon%20SES-Easy%20DKIM%E8%A8%AD%E5%AE%9A%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E8%B3%87%E6%96%99_20120906.pdf
 curl -O https://adsj-contents.s3.amazonaws.com/meister-re:Generate/20140212_AWS-Meister-reGenerate-SQS-SNS.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/meister-re%3AGenerate/20130917_AWS-Meister-reGenerate-extra-SNSMobilePush_public.pdf
@@ -582,5 +603,24 @@ curl -O http://adsj-contents.s3.amazonaws.com/misc/%E3%83%9E%E3%82%A4%E3%82%AF%E
 curl -O http://adsj-contents.s3.amazonaws.com/misc/RD%20Gateway%E3%81%AB%E3%82%88%E3%82%8BWindows%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%81%B8%E3%81%AE%E6%8E%A5%E7%B6%9A.pdf
 curl -O http://adsj-contents.s3.amazonaws.com/misc/%E3%82%A2%E3%83%97%E3%83%AA%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4_20130506.pdf
 curl -O https://adsj-contents.s3.amazonaws.com/misc/20130205_AWS%E3%81%8B%E3%82%89%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E9%80%81%E4%BF%A1.pdf
+curl -O //media.amazonwebservices.com/AWS_Overview_Whitepaper_120809.pdf
 
 
+cd ..
+
+
+## ----------------------------------------------
+## convert encode
+## ----------------------------------------------
+dirs=("awsgsg" "awssdk" "aws-toolkit" "aws-service" "whitepapers" "aws-cli" "adsj-contents")
+
+for dir in ${dirs[@]}
+do
+  filelist=`ls ./${dir}/*.pdf | grep "%"`
+  for file in ${filelist[@]}
+  do
+    new_file=`echo ${file} | nkf --url-input`
+    new_file=`echo ${new_file/%%20/\ }`
+    mv "${file}" "${new_file}"
+  done
+done
