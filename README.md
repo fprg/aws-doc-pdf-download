@@ -1,6 +1,14 @@
 aws-doc-pdf-download
 ====================
 
+# For Mac Users
+Mac Needs nkf command
+
+
+    brew install nkf
+
+
+# Memo
 aws-doc-pdf-download
 
     curl -O http://aws.amazon.com/jp/aws-jp-introduction/index.html
