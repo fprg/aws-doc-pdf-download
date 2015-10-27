@@ -232,6 +232,9 @@ urls = {
         "http://aws.amazon.com/training/architect/", 
         "http://aws.amazon.com/architecture/"
     ], 
+    :security => [
+        "http://aws.amazon.com/jp/security/"
+    ], 
     :aws_seminar => [
         "https://aws.amazon.com/jp/aws-jp-introduction/"
     ], 
@@ -251,7 +254,6 @@ urls = {
         "https://aws.amazon.com/jp/certification/certified-devops-engineer-professional/"
     ], 
 }
-
 
 # 出力先のディレクトリ作成
 begin
