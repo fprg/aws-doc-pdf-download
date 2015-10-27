@@ -92,6 +92,9 @@ require 'fileutils'
 #         "http://aws.amazon.com/jp/documentation/silk/", 
 #         "http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html", 
 
+        # "http://aws.amazon.com/training/architect/", 
+        # "http://aws.amazon.com/architecture/", 
+
 #         "http://aws.amazon.com/jp/whitepapers/", 
 #         "http://aws.amazon.com/jp/aws-jp-introduction/index.html"]
 
@@ -150,7 +153,7 @@ urls = {
         "http://docs.aws.amazon.com/general/latest/gr/", 
         "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
     ], 
-    :security_id => [
+    :security_and_id => [
         "http://aws.amazon.com/jp/documentation/iam/", 
         "http://aws.amazon.com/jp/documentation/directory-service/", 
         "http://aws.amazon.com/jp/documentation/inspector/", 
@@ -196,7 +199,7 @@ urls = {
         "http://aws.amazon.com/jp/documentation/appstream/", 
         "http://aws.amazon.com/jp/documentation/cloudsearch/", 
         "http://aws.amazon.com/jp/documentation/elastictranscoder/", 
-        "http://aws.amazon.com/jp/documentation/fps/", 
+#        "http://aws.amazon.com/jp/documentation/fps/", 
         "http://aws.amazon.com/jp/documentation/ses/", 
         "http://aws.amazon.com/jp/documentation/sns/", 
         "http://aws.amazon.com/jp/documentation/sqs/", 
@@ -225,19 +228,26 @@ urls = {
 
         "http://aws.amazon.com/jp/whitepapers/"
     ], 
-    :asa_certification => [
+    :architecture => [
+        "http://aws.amazon.com/training/architect/", 
+        "http://aws.amazon.com/architecture/"
+    ], 
+    :aws_seminar => [
+        "https://aws.amazon.com/jp/aws-jp-introduction/"
+    ], 
+    :certification_asa => [
         "https://aws.amazon.com/jp/certification/certified-solutions-architect-associate/"
     ], 
-    :psa_certification => [
+    :certification_psa => [
         "https://aws.amazon.com/jp/certification/certified-solutions-architect-professional/"
     ], 
-    :adev_certification => [
+    :certification_adev => [
         "https://aws.amazon.com/jp/certification/certified-developer-associate/"
     ], 
-    :aso_certification => [
+    :certification_aso => [
         "https://aws.amazon.com/jp/certification/certified-sysops-admin-associate/"
     ], 
-    :pdoe_certification => [
+    :certification_pdoe => [
         "https://aws.amazon.com/jp/certification/certified-devops-engineer-professional/"
     ], 
 }
@@ -293,7 +303,5 @@ urls.each do |sb, parse_urls|
                 next
             end
         end
-        break
     end
-    break
 end
