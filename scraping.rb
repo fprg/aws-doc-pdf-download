@@ -124,7 +124,7 @@ urls = {
         "http://aws.amazon.com/jp/documentation/elastic-load-balancing/", 
         "http://aws.amazon.com/jp/documentation/route53/"
     ], 
-    :strage_and_contents_deliver => [
+    :storage_and_contents_deliver => [
         "http://aws.amazon.com/jp/documentation/s3/",
         "http://aws.amazon.com/jp/documentation/cloudfront/",
         "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html", 
