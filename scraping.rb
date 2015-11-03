@@ -259,7 +259,10 @@ urls = {
 begin
     Dir.mkdir("output")
 rescue Exception => e
-    
+end
+begin
+    FileUtils.mkdir_p("./output/ja_jp_matome/")
+rescue Exception => e
 end
 
 # 対象URL
@@ -301,8 +304,13 @@ urls.each do |sb, parse_urls|
                     file.write(f.read) #ファイル名で保存
                 end
             rescue 
-                p url
+                p "error:" + url
                 next
+            end
+
+            # 日本語系をまとめる
+            if filename =~ /(ja|jp)/i
+                FileUtils.cp("output/" + sb.to_s() + "/" + filename, "output/ja_jp_matome/" + filename, {:noop => false})
             end
         end
     end
