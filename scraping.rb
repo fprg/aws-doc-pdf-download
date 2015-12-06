@@ -298,6 +298,10 @@ urls.each do |sb, parse_urls|
 
             # PDFの保存
             filename = File.basename(URI.unescape(url))
+            if File.exist?("output/" + sb.to_s() + "/" + filename)
+                next
+            end
+
             begin
                 open("output/" + sb.to_s() + "/" + filename, 'wb') do |file|
                     f = OpenURI.open_uri(url, {:proxy=>nil})
