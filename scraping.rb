@@ -259,12 +259,6 @@ urls = {
     ]
 }
 
-urls = {
-    :userguide => [
-        "http://aws.amazon.com/jp/documentation/s3/", 
-    ]
-}
-
 class SFDocDownload
     def mkdir_output
         # 出力先のディレクトリ作成
@@ -284,13 +278,16 @@ class SFDocDownload
 
     def run
         self.mkdir_output
-        self.start_parse("http://aws.amazon.com/jp/documentation/iam/")
+        self.start_parse("http://aws.amazon.com/jp/documentation/")
     end
 
     def start_parse(url, rcv_count = 0)
-        if rcv_count >= 2
+        # 再帰処理制御
+        if rcv_count >= 1
             return
         end
+
+        return
 
         # htmlを取得する
         html = ""
@@ -332,15 +329,17 @@ class SFDocDownload
             end
 
             # store file
-            puts url
             store_file(url)
        end
     end
 
     def store_file(url)
-        filename = File.basename(URI.unescape(url))
+
         # 日本語系をまとめる
+        # PDFの保存
+        filename = File.basename(URI.unescape(url))
         if filename =~ /(ja|jp)/i || url =~ /\/(ja|jp)\//i
+            puts url
             if !File.exist?("output/ja_jp_matome/" + filename)
                 begin
                     open("output/ja_jp_matome/" + filename, 'wb') do |file|
@@ -358,6 +357,12 @@ end
 ddl = SFDocDownload.new
 ddl.run
 
+urls = {
+    :userguide => [
+        "http://aws.amazon.com/jp/documentation/vpc/"
+    ]
+
+}
 
 ## 
 ## entry point
@@ -407,10 +412,12 @@ urls.each do |sb, parse_urls|
                 next
             end
 
+            puts url
+
             if url.match(/(http|https).*\.pdf$/)
                 # このまま
             elsif url.match(/\/\/.*\.pdf$/)
-                url = uri.scheme + "://" + url
+                url = uri.scheme + ":" + url
             elsif url.match(/.*\.pdf$/)
                 url = uri.scheme + "://" + uri.host + uri.path.match(/.*\//).to_s + url
             else
