@@ -10,6 +10,9 @@ require "open-uri"
 require "nokogiri"
 require "uri"
 require "fileutils"
+require "capybara"
+require "capybara/poltergeist"
+require "pp"
 
 
 # URL
@@ -98,6 +101,8 @@ require "fileutils"
 #         "http://aws.amazon.com/jp/whitepapers/", 
 #         "http://aws.amazon.com/jp/aws-jp-introduction/index.html"]
 
+# https://aws.amazon.com/jp/documentation/
+
 urls = {
     :computing => [
         "http://aws.amazon.com/jp/documentation/ec2/",
@@ -148,7 +153,7 @@ urls = {
     :resource => [
         "http://aws.amazon.com/jp/documentation/accountbilling/", 
         "http://aws.amazon.com/jp/documentation/marketplace/", 
-        "http://aws.amazon.com/jp/documentation/quickstart/", 
+#        "http://aws.amazon.com/jp/documentation/quickstart/", 
         "http://aws.amazon.com/jp/documentation/awssupport/", 
         "http://docs.aws.amazon.com/general/latest/gr/", 
         "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
@@ -253,59 +258,94 @@ urls = {
     :certification_pdoe => [
         "https://aws.amazon.com/jp/certification/certified-devops-engineer-professional/"
     ], 
-    :userguide => [
-        "http://docs.aws.amazon.com/ja_jp/opsworks/latest/userguide/welcome.html", 
-        "http://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/Welcome.html"
-    ]
 }
 
 class SFDocDownload
+
+    # 出力先のディレクトリ作成
     def mkdir_output
-        # 出力先のディレクトリ作成
         begin
             Dir.mkdir("output")
-        rescue Exception => e
-        end
-        begin
             FileUtils.mkdir_p("./output/ja_jp_matome/")
-        rescue Exception => e
-        end
-        begin
             FileUtils.mkdir_p("./output/whitepaper_matome/")
         rescue Exception => e
         end
     end
 
-    def run
-        self.mkdir_output
-        self.start_parse("http://aws.amazon.com/jp/documentation/")
+    def init_scrape
+        @write_dir = ""
+
+        #poltergistの設定
+        Capybara.register_driver :poltergeist do |app|
+          Capybara::Poltergeist::Driver.new(app, {:js_errors => false, :timeout => 1000 }) #追加のオプションはググってくださいw
+        end
+        Capybara.default_selector = :xpath
+
+        @session = Capybara::Session.new(:poltergeist)
+        
+        # ヘッダ
+        @session.driver.headers = {'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X)"} 
+        # cookie
+        @session.driver.set_cookie('aws-doc-lang', 'ja_jp')
     end
 
-    def start_parse(url, rcv_count = 0)
+    def run(urls)
+        # 初期化
+        self.mkdir_output
+        self.init_scrape
+
+        # 対象URL
+        urls.each do |sb, parse_urls|
+            @write_dir = "./output/" + sb.to_s + "/"
+            puts @write_dir
+
+            begin
+                FileUtils.mkdir_p(@write_dir)
+            rescue Exception => e
+            end
+
+            # URLからHTMLを抽出
+            parse_urls.each do |parse_url|
+                # puts parse_url
+                self.start_parse(parse_url)
+            end
+        end
+    end
+
+    def start_parse(parse_url, rcv_count = 0)
         # 再帰処理制御
-        if rcv_count >= 1
+        if rcv_count >= 2
             return
         end
 
-        return
+        if parse_url =~ /.*docs.aws.amazon.com.*/
+            if !(parse_url =~ /.*ja_jp.*/)
+                parse_url = parse_url.sub(/docs.aws.amazon.com/, 'docs.aws.amazon.com/ja_jp')
+            end
+        end
 
         # htmlを取得する
-        html = ""
-        charset = nil
-        begin
-            html = open(url) do |file|
-              charset = file.charset
-              file.read
-            end
-        rescue Exception => e
-            return
-        end
+        # html = ""
+        # charset = nil
+        # begin
+        #     html = open(parse_url) do |file|
+        #       charset = file.charset
+        #       file.read
+        #     end
+        # rescue Exception => e
+        #     return
+        # end
 
         # uriをパース
-        uri = URI.parse(url)
+        uri = URI.parse(parse_url)
 
         # htmlをパース
-        doc = Nokogiri::HTML.parse(html, nil, charset) rescue return
+        # doc = Nokogiri::HTML.parse(html, nil, charset) rescue return
+        @session.visit parse_url
+        doc = Nokogiri::HTML.parse(@session.html)
+        if rcv_count >= 1
+            # puts html
+        end
 
         # <a>タグを拾う
         doc.css('a').each do |e|
@@ -313,6 +353,26 @@ class SFDocDownload
             url = e[:href]
             if !url
                 next
+            end
+
+            # pp e
+            # pp e.attributes
+            # pp e.children
+
+            if e.children.to_s == 'PDF'
+                # puts parse_url
+                # puts url
+            end
+
+            if url =~ /https:\/\/aws.amazon.com\/\?nc.*/
+                next
+            end
+            if url =~ /https:\/\/aws.amazon.com\/(jp|de|es|fr|it|pt|ru|ko|cn|tw)\/\?nc.*/
+                next
+            end
+
+            filename = self.get_filename_from_url(url)
+            if filename =~ /latest/i || url =~ /latest/i
             end
 
             if url.match(/(http|https).*\.pdf$/)
@@ -323,8 +383,10 @@ class SFDocDownload
                 url = uri.scheme + "://" + uri.host + uri.path.match(/.*\//).to_s + url
             elsif url.match(/javascript/)
                 next
-            else
+            elsif e.children.to_s == 'HTML'
                 self.start_parse(url, rcv_count + 1)
+                next
+            else
                 next
             end
 
@@ -334,124 +396,34 @@ class SFDocDownload
     end
 
     def store_file(url)
-
-        # 日本語系をまとめる
         # PDFの保存
-        filename = File.basename(URI.unescape(url))
-        if filename =~ /(ja|jp)/i || url =~ /\/(ja|jp)\//i
-            puts url
-            if !File.exist?("output/ja_jp_matome/" + filename)
-                begin
-                    open("output/ja_jp_matome/" + filename, 'wb') do |file|
-                        f = OpenURI.open_uri(url, {:proxy=>nil})
-                        file.write(f.read) #ファイル名で保存
-                    end
-                rescue 
-                    p "error:" + url
+        filename = self.get_filename_from_url(url)
+        #puts @write_dir + filename
+        if !File.exist?(@write_dir + filename)
+            begin
+                open(@write_dir + filename, 'wb') do |file|
+                    f = OpenURI.open_uri(url, {:proxy=>nil})
+                    file.write(f.read) #ファイル名で保存
                 end
+            rescue 
+                p "error:" + url
             end
         end
+
+        # 日本語系をまとめる
+        if filename =~ /(ja|jp)/i || url =~ /\/(ja|jp)\//i
+            FileUtils.cp(@write_dir + filename, "output/ja_jp_matome/" + filename, {:noop => false})
+        end
+        # WhitePaper系をまとめる
+        if filename =~ /(wp|whitepaper)/i
+            FileUtils.cp(@write_dir + filename, "output/whitepaper_matome/" + filename, {:noop => false})
+        end
+    end
+
+    def get_filename_from_url(url)
+        return File.basename(URI.unescape(url))
     end
 end
 
 ddl = SFDocDownload.new
-ddl.run
-
-urls = {
-    :userguide => [
-        "http://aws.amazon.com/jp/documentation/vpc/"
-    ]
-
-}
-
-## 
-## entry point
-## 
-# 出力先のディレクトリ作成
-begin
-    Dir.mkdir("output")
-rescue Exception => e
-end
-begin
-    FileUtils.mkdir_p("./output/ja_jp_matome/")
-rescue Exception => e
-end
-begin
-    FileUtils.mkdir_p("./output/whitepaper_matome/")
-rescue Exception => e
-end
-
-# 対象URL
-urls.each do |sb, parse_urls|
-
-    begin
-        FileUtils.mkdir_p("./output/" + sb.to_s() + "/")
-    rescue Exception => e
-    end
-
-    # URLからHTMLを抽出
-    parse_urls.each do |parse_url|
-        html = ""
-    	charset = nil
-    	html = open(parse_url) do |file|
-    	  charset = file.charset
-    	  file.read
-    	end
-
-        # uriをパース
-        uri = URI.parse(parse_url)
-
-    	# htmlをパース
-        doc = Nokogiri::HTML.parse(html, nil, charset) rescue next
-
-        # <a>タグを拾う
-        doc.css('a').each do |e|
-            # hrefを取得し、PDFチェック
-            url = e[:href]
-            if !url
-                next
-            end
-
-            puts url
-
-            if url.match(/(http|https).*\.pdf$/)
-                # このまま
-            elsif url.match(/\/\/.*\.pdf$/)
-                url = uri.scheme + ":" + url
-            elsif url.match(/.*\.pdf$/)
-                url = uri.scheme + "://" + uri.host + uri.path.match(/.*\//).to_s + url
-            else
-                next
-            end
-
-            # PDFの保存
-            filename = File.basename(URI.unescape(url))
-            if !File.exist?("output/" + sb.to_s() + "/" + filename)
-                begin
-                    open("output/" + sb.to_s() + "/" + filename, 'wb') do |file|
-                        f = OpenURI.open_uri(url, {:proxy=>nil})
-                        file.write(f.read) #ファイル名で保存
-                    end
-                rescue 
-                    p "error:" + url
-                    next
-                end
-            end
-
-            # 日本語系をまとめる
-            if filename =~ /(ja|jp)/i || url =~ /\/(ja|jp)\//i
-                FileUtils.cp("output/" + sb.to_s() + "/" + filename, "output/ja_jp_matome/" + filename, {:noop => false})
-            end
-            # WhitePaper系をまとめる
-            if filename =~ /(wp|whitepaper)/i
-                FileUtils.cp("output/" + sb.to_s() + "/" + filename, "output/whitepaper_matome/" + filename, {:noop => false})
-            end
-
-            # userguide
-            if url =~ /(ug|userguide)/i
-                puts '"' + url + '",'
-            end
-
-        end
-    end
-end
+ddl.run urls
