@@ -3,7 +3,7 @@
 # 
 # 
 # 
-# 
+# find ./ -size 0 -exec rm {} \;
 # http://aws.amazon.com/jp/documentation/
 #################################################
 require "open-uri"
@@ -106,28 +106,13 @@ require "pp"
 urls = {
     :computing => [
         "http://aws.amazon.com/jp/documentation/ec2/",
+        "http://aws.amazon.com/jp/documentation/ecr/",
         "http://aws.amazon.com/jp/documentation/ecs/",
         "http://aws.amazon.com/jp/documentation/elastic-beanstalk/",
         "http://aws.amazon.com/jp/documentation/lambda/", 
         "http://aws.amazon.com/jp/documentation/autoscaling/", 
         "http://aws.amazon.com/jp/documentation/elasticloadbalancing/", 
         "http://aws.amazon.com/jp/documentation/vpc/"
-    ], 
-    :managment => [
-        "http://aws.amazon.com/jp/documentation/cloudwatch/", 
-        "http://aws.amazon.com/jp/documentation/cloudformation/", 
-        "http://aws.amazon.com/jp/documentation/cloudtrail/", 
-        "http://aws.amazon.com/jp/documentation/cli/", 
-        "http://aws.amazon.com/jp/documentation/config/", 
-        "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html", 
-        "http://aws.amazon.com/jp/documentation/opsworks/", 
-        "http://aws.amazon.com/jp/documentation/servicecatalog/"
-    ], 
-    :networking => [
-        "http://aws.amazon.com/jp/documentation/vpc/", 
-        "http://aws.amazon.com/jp/documentation/direct-connect/", 
-        "http://aws.amazon.com/jp/documentation/elastic-load-balancing/", 
-        "http://aws.amazon.com/jp/documentation/route53/"
     ], 
     :storage_and_contents_deliver => [
         "http://aws.amazon.com/jp/documentation/s3/",
@@ -138,53 +123,63 @@ urls = {
         "http://aws.amazon.com/jp/documentation/importexport/", 
         "http://aws.amazon.com/jp/documentation/storage-gateway/"
     ], 
-    :enterprise_application => [
-        "http://aws.amazon.com/jp/documentation/workspaces/", 
-        "http://aws.amazon.com/jp/documentation/wam/", 
-        "http://aws.amazon.com/jp/documentation/workdocs/", 
-        "http://aws.amazon.com/jp/documentation/workmail/"
-    ],
-    :developer_tool => [
-        "http://aws.amazon.com/jp/documentation/codecommit/", 
-        "http://aws.amazon.com/jp/documentation/codedeploy/", 
-        "http://aws.amazon.com/jp/documentation/codepipeline/", 
-        "http://aws.amazon.com/jp/documentation/cli/"
-    ],
-    :resource => [
-        "http://aws.amazon.com/jp/documentation/accountbilling/", 
-        "http://aws.amazon.com/jp/documentation/marketplace/", 
-#        "http://aws.amazon.com/jp/documentation/quickstart/", 
-        "http://aws.amazon.com/jp/documentation/awssupport/", 
-        "http://docs.aws.amazon.com/general/latest/gr/", 
-        "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
-    ], 
-    :security_and_id => [
-        "http://aws.amazon.com/jp/documentation/iam/", 
-        "http://aws.amazon.com/jp/documentation/directory-service/", 
-        "http://aws.amazon.com/jp/documentation/inspector/", 
-        "http://aws.amazon.com/jp/documentation/cloudhsm/", 
-        "http://aws.amazon.com/jp/documentation/kms/", 
-        "http://aws.amazon.com/jp/documentation/waf/", 
-        "http://aws.amazon.com/jp/documentation/aws-support/"
-    ], 
     :database => [
         "http://aws.amazon.com/jp/documentation/rds/", 
         "http://aws.amazon.com/jp/documentation/SchemaConversionTool/", 
         "http://aws.amazon.com/jp/documentation/dynamodb/", 
         "http://aws.amazon.com/jp/documentation/elasticache/", 
-        "http://aws.amazon.com/jp/documentation/redshift/"
+        "http://aws.amazon.com/jp/documentation/redshift/", 
+        "http://aws.amazon.com/jp/documentation/dms/"
+    ], 
+    :networking => [
+        "http://aws.amazon.com/jp/documentation/vpc/", 
+        "http://aws.amazon.com/jp/documentation/direct-connect/", 
+        "http://aws.amazon.com/jp/documentation/elastic-load-balancing/", 
+        "http://aws.amazon.com/jp/documentation/route53/"
+    ], 
+
+    :developer_tool => [
+        "http://aws.amazon.com/jp/documentation/codecommit/", 
+        "http://aws.amazon.com/jp/documentation/codedeploy/", 
+        "http://aws.amazon.com/jp/documentation/codepipeline/", 
+        "http://aws.amazon.com/jp/tools/"
+    ],
+    :managment => [
+        "http://aws.amazon.com/jp/documentation/cloudwatch/", 
+        "http://aws.amazon.com/jp/documentation/cloudformation/", 
+        "http://aws.amazon.com/jp/documentation/cloudtrail/", 
+        "http://aws.amazon.com/jp/documentation/cli/", 
+        "http://aws.amazon.com/jp/documentation/config/", 
+        "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html", 
+        "http://aws.amazon.com/jp/documentation/opsworks/", 
+        "http://aws.amazon.com/jp/documentation/servicecatalog/",
+        "http://aws.amazon.com/jp/documentation/aws-support/",
+        "http://aws.amazon.com/jp/documentation/powershell/"
+    ], 
+    :security_and_id => [
+        "http://aws.amazon.com/jp/documentation/iam/", 
+        "http://aws.amazon.com/jp/documentation/acm/",
+        "http://aws.amazon.com/jp/documentation/directory-service/", 
+        "http://aws.amazon.com/jp/documentation/inspector/", 
+        "http://aws.amazon.com/jp/documentation/cloudhsm/", 
+        "http://aws.amazon.com/jp/documentation/kms/", 
+        "http://aws.amazon.com/jp/documentation/waf/"
     ], 
     :analytics => [
         "http://aws.amazon.com/jp/documentation/elasticmapreduce/", 
         "http://aws.amazon.com/jp/documentation/data-pipeline/", 
         "http://aws.amazon.com/jp/documentation/elasticsearch-service/", 
         "http://aws.amazon.com/jp/documentation/kinesis/", 
-        "http://aws.amazon.com/jp/documentation/firehose/", 
         "http://aws.amazon.com/jp/documentation/machine-learning/", 
         "http://aws.amazon.com/jp/documentation/redshift/"
     ], 
+
     :iot => [
         "http://aws.amazon.com/jp/documentation/iot/"
+    ], 
+    :geme_development => [
+        "http://aws.amazon.com/documentation/lumberyard/", 
+        "http://aws.amazon.com/documentation/gamelift/"
     ], 
     :mobile_service => [
         "http://aws.amazon.com/jp/documentation/mobile-hub/", 
@@ -196,6 +191,7 @@ urls = {
         "http://aws.amazon.com/jp/documentation/sdk-for-android/", 
         "http://aws.amazon.com/jp/documentation/sdk-for-ios/", 
         "http://aws.amazon.com/jp/documentation/sdk-for-unity/", 
+        "http://docs.aws.amazon.com/mobile/sdkforxamarin/developerguide/index.html",
 
         "http://aws.amazon.com/jp/documentation/sns/"
     ], 
@@ -204,24 +200,78 @@ urls = {
         "http://aws.amazon.com/jp/documentation/appstream/", 
         "http://aws.amazon.com/jp/documentation/cloudsearch/", 
         "http://aws.amazon.com/jp/documentation/elastictranscoder/", 
-#        "http://aws.amazon.com/jp/documentation/fps/", 
+        "http://aws.amazon.com/jp/documentation/fps/", 
         "http://aws.amazon.com/jp/documentation/ses/", 
         "http://aws.amazon.com/jp/documentation/sns/", 
         "http://aws.amazon.com/jp/documentation/sqs/", 
         "http://aws.amazon.com/jp/documentation/swf/"
     ], 
+    :enterprise_application => [
+        "http://aws.amazon.com/jp/documentation/workspaces/", 
+        "http://aws.amazon.com/jp/documentation/wam/", 
+        "http://aws.amazon.com/jp/documentation/workdocs/", 
+        "http://aws.amazon.com/jp/documentation/workmail/"
+    ],
+    :additional_software_and_service => [
+        "http://aws.amazon.com/documentation/accountbilling/",
+        "http://aws.amazon.com/documentation/marketplace/",
+        "http://aws.amazon.com/documentation/awssupport/",
+        "http://aws.amazon.com/jp/documentation/alexatopsites/", 
+        "http://aws.amazon.com/jp/documentation/awis/", 
+        "http://aws.amazon.com/jp/documentation/silk/", 
+        "http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html"
+    ], 
+
+    :sdk_and_toolkit => [
+        # "http://aws.amazon.com/jp/documentation/sdk-for-go/", 
+        # "http://aws.amazon.com/jp/documentation/sdk-for-java/", 
+        # "http://aws.amazon.com/jp/documentation/sdk-for-javascript/", 
+        # "http://aws.amazon.com/jp/documentation/sdk-for-javascript/",
+        # "http://aws.amazon.com/jp/documentation/sdk-for-net/", 
+        # "http://aws.amazon.com/jp/documentation/sdk-for-php/", 
+        # "https://boto3.readthedocs.org/en/latest/", 
+        # "http://aws.amazon.com/jp/documentation/sdk-for-ruby/", 
+        # "http://docs.aws.amazon.com/AWSToolkitEclipse/latest/ug/welcome.html", 
+        # "http://docs.aws.amazon.com/AWSToolkitVS/latest/UserGuide/welcome.html" 
+    ],
+    :general_reference => [
+        "http://docs.aws.amazon.com/general/latest/gr/rande.html",
+        "http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html",
+        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html", 
+        "http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html", 
+        "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
+    ],
+    :aws_managment_console => [
+        "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/resource-groups.html", 
+        "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html"
+    ],
+    :resource => [
+        "http://aws.amazon.com/jp/documentation/quickstart/", 
+        "http://aws.amazon.com/jp/whitepapers/", 
+        "http://aws.amazon.com/jp/training/", 
+        "http://aws.amazon.com/jp/solutions/case-studies/", 
+        "http://aws.amazon.com/jp/documentation/kindle/", 
+        "http://aws.amazon.com/archives"
+    ],
+
+    :how_to_start => [
+        "http://docs.aws.amazon.com/gettingstarted/latest/awsgsg-intro",
+        "http://docs.aws.amazon.com/gettingstarted/latest/emr/", 
+        "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html", 
+        "http://docs.aws.amazon.com/gettingstarted/latest/deploy/", 
+        "http://docs.aws.amazon.com/gettingstarted/latest/wah-linux/", 
+        "http://docs.aws.amazon.com/gettingstarted/latest/wah/", 
+        "http://docs.aws.amazon.com/gettingstarted/latest/swh/", 
+        "http://aws.amazon.com/jp/training/", 
+        "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
+    ], 
+
     :relation_link => [
         "http://aws.amazon.com/jp/whitepapers/", 
         "http://aws.amazon.com/jp/training/", 
         "http://aws.amazon.com/jp/solutions/case-studies/", 
         "http://aws.amazon.com/jp/documentation/kindle/", 
         "http://aws.amazon.com/archives"
-    ], 
-    :additional_software_and_service => [
-        "http://aws.amazon.com/jp/documentation/alexatopsites/", 
-        "http://aws.amazon.com/jp/documentation/awis/", 
-        "http://aws.amazon.com/jp/documentation/silk/", 
-        "http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html"
     ], 
     :other => [
         "http://aws.amazon.com/jp/documentation/aws-support/", 
@@ -230,8 +280,13 @@ urls = {
         "http://aws.amazon.com/documentation/kindle", 
         "http://docs.aws.amazon.com/general/latest/gr/Welcome.html", 
         "http://aws.amazon.com/jp/training/", 
-
-        "http://aws.amazon.com/jp/whitepapers/"
+        "http://aws.amazon.com/jp/whitepapers/",
+        "http://aws.amazon.com/jp/documentation/accountbilling/", 
+        "http://aws.amazon.com/jp/documentation/marketplace/", 
+        "http://aws.amazon.com/jp/documentation/quickstart/", 
+        "http://aws.amazon.com/jp/documentation/awssupport/", 
+        "http://docs.aws.amazon.com/general/latest/gr/", 
+        "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
     ], 
     :architecture => [
         "http://aws.amazon.com/training/architect/", 
@@ -297,7 +352,6 @@ class SFDocDownload
         # 対象URL
         urls.each do |sb, parse_urls|
             @write_dir = "./output/" + sb.to_s + "/"
-            puts @write_dir
 
             begin
                 FileUtils.mkdir_p(@write_dir)
@@ -306,7 +360,6 @@ class SFDocDownload
 
             # URLからHTMLを抽出
             parse_urls.each do |parse_url|
-                # puts parse_url
                 self.start_parse(parse_url)
             end
         end
@@ -324,6 +377,10 @@ class SFDocDownload
             end
         end
 
+        if parse_url =~ /.*\/quickstart\/latest\/sitecore\/.*/
+            parse_url = "http://docs.aws.amazon.com/ja_jp/quickstart/latest/sitecore/"
+        end
+
         # htmlを取得する
         # html = ""
         # charset = nil
@@ -336,16 +393,13 @@ class SFDocDownload
         #     return
         # end
 
-        # uriをパース
-        uri = URI.parse(parse_url)
-
         # htmlをパース
-        # doc = Nokogiri::HTML.parse(html, nil, charset) rescue return
+        # p "parse:" + parse_url
         @session.visit parse_url
         doc = Nokogiri::HTML.parse(@session.html)
-        if rcv_count >= 1
-            # puts html
-        end
+
+        # uriをパース
+        uri = URI.parse(@session.current_url)
 
         # <a>タグを拾う
         doc.css('a').each do |e|
@@ -398,10 +452,10 @@ class SFDocDownload
     def store_file(url)
         # PDFの保存
         filename = self.get_filename_from_url(url)
-        #puts @write_dir + filename
         if !File.exist?(@write_dir + filename)
             begin
                 open(@write_dir + filename, 'wb') do |file|
+                    p url
                     f = OpenURI.open_uri(url, {:proxy=>nil})
                     file.write(f.read) #ファイル名で保存
                 end
