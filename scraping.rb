@@ -293,7 +293,8 @@ urls = {
         "http://aws.amazon.com/architecture/"
     ], 
     :security => [
-        "http://aws.amazon.com/jp/security/"
+        "http://aws.amazon.com/jp/security/", 
+        "https://aws.amazon.com/jp/whitepapers/overview-of-security-processes/"
     ], 
     :aws_seminar => [
         "https://aws.amazon.com/jp/aws-jp-introduction/"
@@ -313,6 +314,22 @@ urls = {
     :certification_pdoe => [
         "https://aws.amazon.com/jp/certification/certified-devops-engineer-professional/"
     ], 
+    :aws_summit_2015 => [
+        "https://aws.amazon.com/jp/summit2015-report/details/"
+    ],
+    :aws_summit_2014 => [
+        "https://aws.amazon.com/jp/summit2014-report/details/"
+    ],
+    :aws_summit_2013 => [
+        "https://aws.amazon.com/jp/summit2013-report/details/"
+    ],
+    :aws_summit_2012 => [
+        "http://aws.amazon.com/jp/summit2012-report/#movie1", 
+        "http://aws.amazon.com/jp/summit2012-report/#movie2", 
+        "http://aws.amazon.com/jp/summit2012-report/#article", 
+        "http://aws.amazon.com/jp/summit2012-report/#CDP", 
+        "http://aws.amazon.com/jp/summit2012-report/#mini"
+    ]
 }
 
 class SFDocDownload
