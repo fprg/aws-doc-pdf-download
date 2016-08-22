@@ -137,6 +137,9 @@ class SFDocDownload
             elsif url.match(/javascript/)
                 next
             elsif e.children.to_s == 'HTML'
+                if !url.match(/^http/)
+                    url = uri.scheme + "://" + uri.host + url
+                end
                 self.start_parse(url, rcv_count + 1)
                 next
             else
