@@ -37,6 +37,7 @@ urls:
     - "http://aws.amazon.com/jp/documentation/codepipeline/" 
     - "http://aws.amazon.com/jp/tools/"
   managment:
+    - "https://aws.amazon.com/jp/documentation/application-discovery/"
     - "http://aws.amazon.com/jp/documentation/cloudwatch/" 
     - "http://aws.amazon.com/jp/documentation/cloudformation/" 
     - "http://aws.amazon.com/jp/documentation/cloudtrail/" 
@@ -45,7 +46,7 @@ urls:
     - "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/getting-started.html" 
     - "http://aws.amazon.com/jp/documentation/opsworks/" 
     - "http://aws.amazon.com/jp/documentation/servicecatalog/"
-    - "http://aws.amazon.com/jp/documentation/aws-support/"
+    - "http://aws.amazon.com/jp/documentation/aws-support/" # Trusted Advisor
     - "http://aws.amazon.com/jp/documentation/powershell/"
   security_and_id:
     - "http://aws.amazon.com/jp/documentation/iam/" 
@@ -74,8 +75,8 @@ urls:
     - "http://aws.amazon.com/jp/documentation/devicefarm/" 
     - "http://aws.amazon.com/jp/documentation/mobileanalytics/" 
     - "http://aws.amazon.com/jp/documentation/sdk-for-android/" 
-    - "http://aws.amazon.com/jp/documentation/sdk-for-ios/" 
-    - "http://aws.amazon.com/jp/documentation/sdk-for-unity/" 
+    - "http://aws.amazon.com/jp/documentation/sdk-for-ios/"
+    - "http://aws.amazon.com/jp/documentation/sdk-for-unity/"
     - "http://docs.aws.amazon.com/mobile/sdkforxamarin/developerguide/index.html"
     - "http://aws.amazon.com/jp/documentation/sns/"
   application_service:
@@ -118,6 +119,7 @@ urls:
     - "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html" 
     - "http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" 
     - "http://docs.aws.amazon.com/general/latest/gr/glos-chap.html"
+    - "https://aws.amazon.com/jp/whitepapers/"
   aws_managment_console:
     - "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/resource-groups.html" 
     - "http://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html"
@@ -176,6 +178,8 @@ urls:
     - "https://aws.amazon.com/jp/certification/certified-sysops-admin-associate/"
   certification_pdoe:
     - "https://aws.amazon.com/jp/certification/certified-devops-engineer-professional/"
+  aws_summit_2016:
+    - "https://aws.amazon.com/jp/summit2016-report/details/"
   aws_summit_2015:
     - "https://aws.amazon.com/jp/summit2015-report/details/"
   aws_summit_2014:
